@@ -108,8 +108,8 @@ public class OAuth1Swift: OAuthSwift {
     // 3. Get Access token
     func postOAuthAccessTokenWithRequestToken(success: TokenSuccessHandler, failure: FailureHandler?) {
         var parameters = Dictionary<String, AnyObject>()
-        parameters["oauth_token"] = self.client.credential.oauth_token
-        parameters["oauth_verifier"] = self.client.credential.oauth_verifier
+        parameters["oauth_token"] = self.client.credential.oauth_token.stringByRemovingPercentEncoding
+        parameters["oauth_verifier"] = self.client.credential.oauth_verifier.stringByRemovingPercentEncoding
         self.client.post(self.access_token_url, parameters: parameters, success: {
             data, response in
             let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String!
